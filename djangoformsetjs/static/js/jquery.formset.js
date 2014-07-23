@@ -91,9 +91,15 @@
         $delete.change(function(event) {
             if ($delete.is(':checked')) {
                 $form.attr('data-formset-form-deleted', '');
+                // Remove required property to allow submit and save it to data field
+                $form.find(':required').data('required-field', true).prop('required', false);
                 $form.trigger('formDeleted');
             } else {
                 $form.removeAttr('data-formset-form-deleted');
+                // Restore required property from data field
+                $form.find('*').filter(function() {
+                    return $(this).data('required-field') == true;
+                }).prop('required', true);
                 $form.trigger('formAdded');
             }
         }).trigger('change');
