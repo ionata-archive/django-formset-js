@@ -53,9 +53,10 @@
         add: '[data-formset-add]',
         deleteButton: '[data-formset-delete-button]',
         hasMaxFormsClass: 'has-max-forms',
+        callback: null,
         animateForms: false
     };
-
+        
     Formset.prototype.addForm = function() {
         // Don't proceed if the number of maximum forms has been reached
         if (this.hasMaxForms()) {
@@ -75,6 +76,13 @@
         var $newForm = $newFormFragment.filter(this.opts.form);
         this.bindForm($newForm, newIndex);
 
+        if (this.opts['callback']!==null) {
+            if (this.opts['callback'].indexOf("(")>0) {
+                eval(this.opts['callback']);
+            } else {
+                eval(this.opts['callback']+"()");
+            }
+        }
         return $newForm;
     };
 

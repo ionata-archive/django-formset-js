@@ -5,6 +5,7 @@ from djangoformsetjs.utils import formset_media_js
 
 class MyForm(forms.Form):
 
+    bar = forms.CharField()
     foo = forms.CharField()
 
     class Media(object):
@@ -14,7 +15,7 @@ class MyForm(forms.Form):
         )
 
 
-MyFormSet = formset_factory(MyForm)
+MyFormSet = formset_factory(MyForm, can_delete=True)
 
 
 def formset_view(request):
