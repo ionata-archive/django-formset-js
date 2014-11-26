@@ -19,8 +19,23 @@
             <!-- New forms will be inserted in here -->
             {% for form in formset %}
                 <div data-formset-form>
-                    {{ form }}
-                    <button type="button" data-formset-delete-button>Delete form</button>
+                    {% comment %} {{ form }} {% endcomment %}
+                    <p>
+                        {{ form.id }}
+                        {{ form.bar.label_tag }}
+                        {{ form.bar }}
+                        {{ form.bar.errors }}
+                    </p>
+                    <p>
+                        {{ form.foo.label_tag }}
+                        {{ form.foo }}
+                        {{ form.foo.errors }}
+                    </p>
+                    {% if formset.can_delete %}
+                        <span style="display:none;">{{ form.DELETE }}</span>
+                        <button type="button" data-formset-delete-button>Delete form</button>
+                    {% endif %}
+                    <br /><br />
                 </div>
             {% endfor %}
         </div>
@@ -31,21 +46,44 @@
         <script type="form-template" data-formset-empty-form>
             {% escapescript %}
                 <div data-formset-form>
-                    {{ formset.empty_form }}
-                    <button type="button" data-formset-delete-button>Delete form</button>
+                    <p>
+                        {{ formset.empty_form.bar.label_tag }}
+                        {{ formset.empty_form.bar }}
+                        {{ formset.empty_form.bar.errors }}
+                    </p>
+                    <p>
+                        {{ formset.empty_form.foo.label_tag }}
+                        {{ formset.empty_form.foo }}
+                        {{ formset.empty_form.foo.errors }}
+                    </p>
+                    {% if formset.can_delete %}
+                        <span style="display:none;">{{ formset.empty_form.DELETE }}</span>
+                        <button type="button" data-formset-delete-button>Delete form</button>
+                    {% endif %}
+                    <br /><br />
                 </div>
             {% endescapescript %}
         </script>
 
+        <br /><br />
         <!-- This button will add a new form when clicked -->
         <input type="button" value="Add another" data-formset-add>
 
         <script>jQuery(function($) {
-            $("#formset").formset();
-        });</script>
+            $("#formset").formset({
+                form: '[data-formset-form]',
+                emptyForm: 'script[type=form-template][data-formset-empty-form]',
+                body: '[data-formset-body]',
+                add: '[data-formset-add]',
+                deleteButton: '[data-formset-delete-button]',
+                animateForms: true
+            });
+        });
+        </script>
 
     </div>
 
+    <br /><br />
     <button type="submit">Submit</button>
 
     </form>

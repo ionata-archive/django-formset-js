@@ -170,6 +170,7 @@ The jQuery plugin takes the following options:
 ``add``:
   The selector to find the add button.
   Defaults to ``[data-formset-add]``.
+
 ``deleteButton``:
   The selector to find the delete button within a form.
   Defaults to ``[data-formset-delete-button]``.
@@ -178,6 +179,11 @@ The jQuery plugin takes the following options:
   The class added to the formset when the maximum number of forms is reached.
   The maximum number of forms is pulled from the management form.
   Defaults to ``has-max-forms``.
+
+``callback``:
+  Javacript function to be evaluated after adding new form. Samples: "name_of_function",
+  "alert('Hello World')", etc
+  Defaults to ``null``.
 
 ``animateForms``:
   Whether to animate form addition/deletion.
