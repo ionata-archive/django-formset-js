@@ -181,9 +181,9 @@ The jQuery plugin takes the following options:
   Defaults to ``has-max-forms``.
 
 ``callback``:
-  Javacript function to be evaluated after adding new form. Samples: "name_of_function",
-  "alert('Hello World')", etc
+  Javacript function to be called after the addition of a new form.
   Defaults to ``null``.
+  Passes in the new form as a jQuery object to the function.
 
 ``animateForms``:
   Whether to animate form addition/deletion.
