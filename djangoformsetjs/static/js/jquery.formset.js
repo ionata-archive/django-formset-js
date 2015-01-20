@@ -56,7 +56,7 @@
         callback: null,
         animateForms: false
     };
-        
+
     Formset.prototype.addForm = function() {
         // Don't proceed if the number of maximum forms has been reached
         if (this.hasMaxForms()) {
@@ -76,12 +76,8 @@
         var $newForm = $newFormFragment.filter(this.opts.form);
         this.bindForm($newForm, newIndex);
 
-        if (this.opts['callback']!==null) {
-            if (this.opts['callback'].indexOf("(")>0) {
-                eval(this.opts['callback']);
-            } else {
-                eval(this.opts['callback']+"()");
-            }
+        if (this.opts.callback !== null) {
+            this.opts.callback($newForm);
         }
         return $newForm;
     };
@@ -110,7 +106,7 @@
                 $form.removeAttr('data-formset-form-deleted');
                 // Restore required property and pattern attributes from data field
                 $form.find('*').filter(function() {
-                    return $(this).data('required-field') == true;
+                    return $(this).data('required-field') === true;
                 }).prop('required', true);
                 $form.find('input').each(function() {
                     var pattern = $(this).data('field-pattern');
@@ -122,7 +118,7 @@
             }
         }).trigger('change');
 
-        var $deleteButton = $form.find(this.opts.deleteButton);
+        var $deleteButton = $form.find(this.opts.deleteButton).first();
 
         $deleteButton.bind('click', function() {
             $delete.attr('checked', true).change();
